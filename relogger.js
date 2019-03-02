@@ -7,18 +7,11 @@ const createSerializer = require("./serializer");
  */
 class Relogger {
     constructor(configuration = {}) {
-        const redisConfiguration = {
-            host: 'localhost',
-            port: 6379,
-            prefix: "relogger:",
-            ...configuration.redis || {}
-        };
-
-        this.queue = configuration.queue || "queue";
-        this.redis = redis.createClient(redisConfiguration);
+        this.queue = configuration.queue;
+        this.redis = redis.createClient(configuration.redis);
 
         this.logger = new Logger({facility: configuration.facility});
-        this.serializer = createSerializer(configuration.serializer || 'JSON');
+        this.serializer = createSerializer(configuration.serializer);
     }
 
     pushMessage(message) {

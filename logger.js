@@ -1,30 +1,33 @@
+const assert = require("assert");
+
 class Logger {
     constructor(configuration = {}) {
-        this.facility = configuration.facility || "app";
+        this.facility = configuration.facility;
+        assert(this.facility, "[facility] name is not defined!");
     }
 
     trace() {
-        return this.prepareMessage(new Date(), "trace", Array.from(arguments));
+        return this.prepareMessage(Date.now(), "trace", Array.from(arguments));
     }
 
     debug() {
-        return this.prepareMessage(new Date(), "debug", Array.from(arguments));
+        return this.prepareMessage(Date.now(), "debug", Array.from(arguments));
     }
 
     warn() {
-        return this.prepareMessage(new Date(), "warn", Array.from(arguments));
+        return this.prepareMessage(Date.now(), "warn", Array.from(arguments));
     }
 
     info() {
-        return this.prepareMessage(new Date(), "info", Array.from(arguments));
+        return this.prepareMessage(Date.now(), "info", Array.from(arguments));
     }
 
     error() {
-        return this.prepareMessage(new Date(), "error", Array.from(arguments));
+        return this.prepareMessage(Date.now(), "error", Array.from(arguments));
     }
 
     fatal() {
-        return this.prepareMessage(new Date(), "fatal", Array.from(arguments));
+        return this.prepareMessage(Date.now(), "fatal", Array.from(arguments));
     }
 
     prepareMessage(date, severity, message) {

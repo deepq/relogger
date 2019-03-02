@@ -1,4 +1,5 @@
 const Relogger = require("./relogger");
+const Rereader = require("./rereader");
 
 const methods = {
     'debug': 'debug',
@@ -8,6 +9,23 @@ const methods = {
     'log': 'info',
     'trace': 'trace',
     'fatal': 'fatal'
+};
+
+const defaultConfiguration = {
+    //redis configuration
+    redis: {
+        host: "localhost",
+        port: 6379,
+        prefix: "relogger:"
+    },
+    facility: "app",
+    queue: "queue",
+    //workerQueue: "" //to be defined by rereader instance
+    serializer: "JSON",
+    transports: [
+        {type: "console", formatter: null},
+        //{type: "file", formatter: null},
+    ],
 };
 
 function createLogger(configuration) {
@@ -20,9 +38,14 @@ function createLogger(configuration) {
             };
         }
     };
-    return new Proxy(new Relogger(configuration), handler);
+    return new Proxy(new Relogger({...defaultConfiguration, ...configuration}), handler);
+}
+
+function createReader(configuration) {
+    return new Rereader({...defaultConfiguration, ...configuration});
 }
 
 module.exports = {
-    createLogger
+    createLogger,
+    createReader
 };
