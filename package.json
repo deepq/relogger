@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose --coverage"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +12,17 @@
     "jest": "^24.1.0",
     "jest-cli": "^24.1.0",
     "redis": "^2.8.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "rootDir": "./services",
+    "roots": [
+      "../test"
+    ]
+  },
+  "devDependencies": {
+    "redis-mock": "^0.43.0"
   }
 }
