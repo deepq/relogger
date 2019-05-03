@@ -2,9 +2,13 @@
   "name": "relogger",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "prepare": "npm run build",
+    "build": "tsc",
+    "build-sample": "tsc producer.ts consumer.ts"
   },
   "author": "",
   "license": "ISC",
@@ -14,17 +18,43 @@
     "redis": "^2.8.0"
   },
   "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
     "collectCoverage": true,
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "rootDir": "./services",
-    "roots": [
-      "../test"
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverageFrom": [
+      "src/*.{js,ts}"
     ]
   },
   "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "@types/node": "^11.13.9",
+    "@types/redis": "^2.8.12",
     "cz-conventional-changelog": "^2.1.0",
-    "redis-mock": "^0.43.0"
+    "jest-config": "^24.7.1",
+    "redis-mock": "^0.43.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
   },
   "config": {
     "commitizen": {

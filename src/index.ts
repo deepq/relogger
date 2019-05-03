@@ -1,10 +1,10 @@
-const Relogger = require("./relogger");
-const Rereader = require("./rereader");
+import {Relogger} from "./relogger";
+import {Rereader} from "./rereader";
 
-const methods = {
+const methods: any = {
     'debug': 'debug',
     'info': 'info',
-    'warning': 'warning',
+    'warn': 'warn',
     'error': 'error',
     'log': 'info',
     'trace': 'trace',
@@ -28,11 +28,11 @@ const defaultConfiguration = {
     ],
 };
 
-function createLogger(configuration) {
+export function createLogger(configuration: any = {}) {
     const handler = {
-        get(target, method) {
+        get(target: any, method: string) {
             if (!methods.hasOwnProperty(method)) return;
-            return (...args) => {
+            return (...args: any) => {
                 const message = target.logger[methods[method]](...args);
                 target.pushMessage(message);
             };
@@ -41,11 +41,6 @@ function createLogger(configuration) {
     return new Proxy(new Relogger({...defaultConfiguration, ...configuration}), handler);
 }
 
-function createReader(configuration) {
+export function createReader(configuration: any = {}): Rereader {
     return new Rereader({...defaultConfiguration, ...configuration});
 }
-
-module.exports = {
-    createLogger,
-    createReader
-};
