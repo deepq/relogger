@@ -2,9 +2,12 @@
   "name": "relogger",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "prepare": "npm run build",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +27,8 @@
   },
   "devDependencies": {
     "cz-conventional-changelog": "^2.1.0",
-    "redis-mock": "^0.43.0"
+    "redis-mock": "^0.43.0",
+    "typescript": "^3.4.5"
   },
   "config": {
     "commitizen": {

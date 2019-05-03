@@ -42,7 +42,7 @@ class Rereader {
     registerTransports() {
         this.transports.forEach(transport => {
             transport.instance = createTransport(transport, this.transportEmitter);
-        })
+        });
         console.log(this.transports);
     }
 
