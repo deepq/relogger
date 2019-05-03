@@ -1,5 +1,7 @@
-class Serializer {
-    public opts: any;
+import {Serializer, SerializerOptions, SerializerType} from "./interfaces";
+
+export class BaseSerializer implements Serializer {
+    public opts: SerializerOptions;
 
     constructor(opts = {}) {
         this.opts = opts;
@@ -15,9 +17,9 @@ class Serializer {
 }
 
 
-class JSONSerializer extends Serializer {
+export class JSONSerializer extends BaseSerializer {
 
-    serialize(message: any) {
+    serialize(message: any): string {
         if (typeof message !== 'object')
             throw new Error('SERIALIZE_ERROR');
 
@@ -28,7 +30,7 @@ class JSONSerializer extends Serializer {
         }
     }
 
-    deserialize(message: string) {
+    deserialize(message: string): any {
         if (typeof message !== 'string')
             throw new Error('DESERIALIZE_ERROR');
         try {
@@ -39,12 +41,12 @@ class JSONSerializer extends Serializer {
     }
 }
 
-export function createSerializer(serializer: string, opts: any) {
+export function createSerializer(serializer: SerializerType, opts?: SerializerOptions): Serializer {
     switch (serializer) {
-        case 'JSON':
+        case SerializerType.JSON:
             return new JSONSerializer(opts);
         default:
-            return new Serializer(opts);
+            return new BaseSerializer(opts);
     }
 }
 
