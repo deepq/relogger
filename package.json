@@ -15,7 +15,7 @@
   "dependencies": {
     "jest": "^24.1.0",
     "jest-cli": "^24.1.0",
-    "redis": "^2.8.0"
+    "redis": "^3.1.1"
   },
   "jest": {
     "transform": {
